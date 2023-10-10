@@ -12,7 +12,7 @@ class Message extends Model
     protected $fillable = [
         'sender_id',
         'receiver_id',
-        'notification_id',
+        'conversation_id',
         'message',
         'read',
     ];
@@ -26,5 +26,4 @@ class Message extends Model
     {
         return $this->belongsTo(Conversation::class);
     }
-
 }

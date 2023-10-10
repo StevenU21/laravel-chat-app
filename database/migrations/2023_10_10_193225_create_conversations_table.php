@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('conversations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-
             // Persona que envía el mensaje
             $table->integer('sender_id')->unsigned();
             // Persona que recibe el mensaje
@@ -22,6 +20,7 @@ return new class extends Migration
             // Relaciones con el sender y el receiver
             $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamp('last_time_message');
             $table->timestamps();
         });
     }

@@ -16,16 +16,14 @@ return new class extends Migration
 
             // Persona que envía el mensaje
             $table->integer('sender_id')->unsigned();
+            $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             // Persona que recibe el mensaje
             $table->integer('receiver_id')->unsigned();
+            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
             // Relación con la sala de chat
             $table->integer('conversation_id')->unsigned();
             $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade')->onUpdate('cascade');
-
-            // Relaciones con el sender y el receiver
-            $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
             $table->text('message')->nullable();
             $table->boolean('read')->default(0);
