@@ -42,6 +42,6 @@ class CreateChat extends Component
     public function render()
     {
         $this->users = User::where('id', '!=', auth()->user()->id)->get();
-        return view('livewire.chat.create-chat')->layout('layouts.app');
+        return view('livewire.chat.create-chat');
     }
 }
