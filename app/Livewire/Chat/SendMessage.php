@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire\Chat;
 
 use App\Events\MessageSent;
@@ -12,7 +11,7 @@ class SendMessage extends Component
 {
     public $selectedConversation;
     public $receiverInstance;
-    public $body;
+    public $message; // Cambio de 'body' a 'message'
     public $createdMessage;
     protected $listeners = ['updateSendMessage', 'dispatchMessageSent', 'resetComponent'];
 
@@ -31,31 +30,26 @@ class SendMessage extends Component
     public function sendMessage()
     {
         $this->validate([
-            'body' => 'required|string|min:1',
+            'message' => 'required|string|min:1',
         ]);
 
         $this->createdMessage = Message::create([
             'conversation_id' => $this->selectedConversation->id,
             'sender_id' => auth()->id(),
             'receiver_id' => $this->receiverInstance->id,
-            'body' => $this->body,
+            'message' => $this->message,
         ]);
 
         $this->selectedConversation->last_time_message = $this->createdMessage->created_at;
         $this->selectedConversation->save();
 
-        // Reemplaza $this->emitTo con $this->dispatch y to('chat.chatbox')
         $this->dispatch('pushMessage', $this->createdMessage->id)->to('chat.chatbox');
-
-        // Reemplaza $this->emitTo con $this->dispatch y to('chat.chat-list')
         $this->dispatch('refresh')->to('chat.chat-list');
 
-        $this->reset('body');
+        $this->reset('message'); // Restablece el valor de 'message' a su estado inicial
 
-        // Reemplaza $this->emitSelf con $this->dispatch y self()
         $this->dispatch('dispatchMessageSent')->self();
     }
-
 
     public function dispatchMessageSent()
     {

@@ -13,6 +13,7 @@ class ChatList extends Component
     public $receiverInstance;
     public $name;
     public $selectedConversation;
+    public $showChatList = true; // Agregamos esta propiedad
     protected $listeners = ['chatUserSelected', 'refresh' => '$refresh', 'resetComponent'];
 
     public function resetComponent()
@@ -57,6 +58,11 @@ class ChatList extends Component
             $query->where('sender_id', $this->auth_id)
                 ->orWhere('receiver_id', $this->auth_id);
         })->orderByDesc('last_time_message')->get();
+    }
+
+    public function toggleChatList()
+    {
+        $this->showChatList = !$this->showChatList;
     }
 
     public function render()
