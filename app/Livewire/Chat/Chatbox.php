@@ -16,10 +16,10 @@ class Chatbox extends Component
     public $paginateVar = 10;
     public $height;
     public $messages_count;
-    public $createdMessage; // Agrega esta línea
+    public $createdMessage;
 
     protected $rules = [
-        'body' => 'required|string|max:255',
+        'message' => 'required|string|max:255',
     ];
 
     public function  getListeners()
@@ -70,10 +70,10 @@ class Chatbox extends Component
     {
         $newMessage = Message::find($messageId);
         $this->messages->push($newMessage);
-        $this->dispatchBrowserEvent('rowChatToBottom');
+        $this->dispatch('rowChatToBottom');
     }
 
-    function loadmore()
+    public function loadmore()
     {
         $this->paginateVar = $this->paginateVar + 10;
         $this->messages_count = Message::where('conversation_id', $this->selectedConversation->id)->count();
@@ -83,7 +83,7 @@ class Chatbox extends Component
             ->take($this->paginateVar)->get();
 
         $height = $this->height;
-        $this->dispatchBrowserEvent('updatedHeight', ($height));
+        $this->dispatch('updatedHeight', ['height' => $height]);
     }
 
     function updateHeight($height)
@@ -93,16 +93,16 @@ class Chatbox extends Component
 
     public function loadConversation(Conversation $conversation, User $receiver)
     {
-        $this->selectedConversation =  $conversation;
-        $this->receiver =  $receiver;
+        $this->selectedConversation = $conversation;
+        $this->receiver = $receiver;
         $this->messages_count = Message::where('conversation_id', $this->selectedConversation->id)->count();
-        $this->messages = Message::where('conversation_id',  $this->selectedConversation->id)
-            ->skip($this->messages_count -  $this->paginateVar)
+        $this->messages = Message::where('conversation_id', $this->selectedConversation->id)
+            ->skip($this->messages_count - $this->paginateVar)
             ->take($this->paginateVar)->get();
-        $this->dispatchBrowserEvent('chatSelected');
+        $this->dispatch('chatSelected');
         Message::where('conversation_id', $this->selectedConversation->id)
             ->where('receiver_id', auth()->user()->id)->update(['read' => 1]);
-        $this->emitSelf('broadcastMessageRead');
+        $this->dispatch('broadcastMessageRead', ['conversationId' => $this->selectedConversation->id]);
     }
 
     public function sendMessage()
@@ -113,15 +113,19 @@ class Chatbox extends Component
             'conversation_id' => $this->selectedConversation->id,
             'sender_id' => auth()->id(),
             'receiver_id' => $this->receiver->id,
-            'body' => $this->body,
+            'message' => $this->message,
         ]);
 
         $this->selectedConversation->last_time_message = $this->createdMessage->created_at;
         $this->selectedConversation->save();
-        $this->emitTo('chat.chatbox', 'pushMessage', $this->createdMessage->id);
-        $this->emitTo('chat.chat-list', 'refresh');
-        $this->reset('body');
-        $this->emitSelf('dispatchMessageSent');
+
+        $this->dispatch('pushMessage', $this->createdMessage->id)->to('chat.chatbox');
+
+        $this->dispatch('refresh')->to('chat.chat-list');
+
+        $this->reset('message');
+
+        $this->dispatch('dispatchMessageSent')->self();
     }
 
     public function render()
