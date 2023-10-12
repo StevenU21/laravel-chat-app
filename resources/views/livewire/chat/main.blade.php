@@ -12,6 +12,7 @@
     </div>
 </div>
 <!-- Scripts para escuchar y despachar eventos con Livewire 3 -->
+{{-- <script src="{{ asset('js/main.js')}}"></script> --}}
 <script>
     document.addEventListener('livewire:initialized', () => {
         @this.on('chatSelected', (event) => {
@@ -22,7 +23,9 @@
             let chatboxBody = document.querySelector('.chatbox_body');
             chatboxBody.scrollTop = chatboxBody.scrollHeight;
             let height = chatboxBody.scrollHeight;
-            @this.dispatch('updateHeight', { height: height });
+            @this.dispatch('updateHeight', {
+                height: height
+            });
         });
     });
 </script>
@@ -43,4 +46,11 @@
             document.querySelector('.w-3/4').classList.add('hidden');
         });
     });
+</script>
+
+<script>
+    window.Echo.channel('test-channel')
+        .listen('TestEvent', (e) => {
+            console.log('Evento de prueba recibido:', e);
+        });
 </script>

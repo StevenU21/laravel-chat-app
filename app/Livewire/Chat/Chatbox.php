@@ -42,21 +42,21 @@ class Chatbox extends Component
     {
         if ($this->selectedConversation) {
             if ((int) $this->selectedConversation->id === (int) $event['conversation_id']) {
-                $this->dispatchBrowserEvent('markMessageAsRead');
+                $this->dispatch('markMessageAsRead');
             }
         }
     }
 
     function broadcastedMessageReceived($event)
     {
-        $this->emitTo('chat.chat-list', 'refresh');
+        $this->dispatch('refresh')->to('chat.chat-list');
         $broadcastedMessage = Message::find($event['message']);
         if ($this->selectedConversation) {
             if ((int) $this->selectedConversation->id  === (int)$event['conversation_id']) {
                 $broadcastedMessage->read = 1;
                 $broadcastedMessage->save();
                 $this->pushMessage($broadcastedMessage->id);
-                $this->emitSelf('broadcastMessageRead');
+                $this->dispatch('broadcastMessageRead')->self();
             }
         }
     }

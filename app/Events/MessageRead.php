@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MessageRead
+class MessageRead implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $conversation_id;
@@ -24,7 +24,7 @@ class MessageRead
         $this->receiver_id = $receiver_id;
     }
 
-    public function broadcastWith()
+    public function broadcastWith(): array
     {
         return [
             'conversation_id' => $this->conversation_id,
@@ -39,6 +39,8 @@ class MessageRead
      */
     public function broadcastOn(): array
     {
-        return [new PrivateChannel('chat.' . $this->receiver_id)];
+        return [
+            new PrivateChannel('chat.' . $this->receiver_id),
+        ];
     }
 }

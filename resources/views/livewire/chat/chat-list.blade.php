@@ -12,9 +12,7 @@
             <button
                 class="w-full bg-indigo-700 text-white py-2 px-4 rounded-lg hover:bg-indigo-800"
                 wire:click="toggleChatList"
-                wire:ignore
-                {{-- Evita que Livewire controle el botón --}}
-            >
+                wire:ignore>
                 Mostrar/ocultar lista de chat
             </button>
         </div>
