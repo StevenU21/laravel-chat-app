@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="bottom_row">
                                     <div class="message_body text-truncate text-gray-700">
-                                        {{ optional($conversation->messages->last())->body }}
+                                        {{ optional($conversation->messages->last())->message }}
                                     </div>
                                     @php
                                         $unreadCount = $conversation->messages

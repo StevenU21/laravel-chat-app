@@ -105,28 +105,28 @@ class Chatbox extends Component
         $this->dispatch('broadcastMessageRead', ['conversationId' => $this->selectedConversation->id]);
     }
 
-    public function sendMessage()
-    {
-        $this->validate();
+    // public function sendMessage()
+    // {
+    //     $this->validate();
 
-        $this->createdMessage = Message::create([
-            'conversation_id' => $this->selectedConversation->id,
-            'sender_id' => auth()->id(),
-            'receiver_id' => $this->receiver->id,
-            'message' => $this->message,
-        ]);
+    //     $this->createdMessage = Message::create([
+    //         'conversation_id' => $this->selectedConversation->id,
+    //         'sender_id' => auth()->id(),
+    //         'receiver_id' => $this->receiver->id,
+    //         'message' => $this->message,
+    //     ]);
 
-        $this->selectedConversation->last_time_message = $this->createdMessage->created_at;
-        $this->selectedConversation->save();
+    //     $this->selectedConversation->last_time_message = $this->createdMessage->created_at;
+    //     $this->selectedConversation->save();
 
-        $this->dispatch('pushMessage', $this->createdMessage->id)->to('chat.chatbox');
+    //     $this->dispatch('pushMessage', $this->createdMessage->id)->to('chat.chatbox');
 
-        $this->dispatch('refresh')->to('chat.chat-list');
+    //     $this->dispatch('refresh')->to('chat.chat-list');
 
-        $this->reset('message');
+    //     $this->reset('message');
 
-        $this->dispatch('dispatchMessageSent')->self();
-    }
+    //     $this->dispatch('dispatchMessageSent')->self();
+    // }
 
     public function render()
     {

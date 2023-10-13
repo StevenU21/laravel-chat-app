@@ -12,7 +12,6 @@
     </div>
 </div>
 <!-- Scripts para escuchar y despachar eventos con Livewire 3 -->
-{{-- <script src="{{ asset('js/main.js')}}"></script> --}}
 <script>
     document.addEventListener('livewire:initialized', () => {
         @this.on('chatSelected', (event) => {
@@ -27,30 +26,17 @@
                 height: height
             });
         });
-    });
-</script>
-<script>
-    document.addEventListener('livewire:initialized', () => {
+
         @this.on('resize', (event) => {
             if (window.innerWidth > 768) {
                 document.querySelector('.w-1/4').classList.remove('hidden');
                 document.querySelector('.w-3/4').classList.remove('hidden');
             }
         });
-    });
-</script>
-<script>
-    document.addEventListener('livewire:initialized', () => {
+
         @this.on('clickReturn', (event) => {
             document.querySelector('.w-1/4').classList.remove('hidden');
             document.querySelector('.w-3/4').classList.add('hidden');
         });
     });
-</script>
-
-<script>
-    window.Echo.channel('test-channel')
-        .listen('TestEvent', (e) => {
-            console.log('Evento de prueba recibido:', e);
-        });
 </script>

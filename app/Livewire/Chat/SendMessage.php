@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire\Chat;
 
 use App\Events\MessageSent;
@@ -11,7 +12,7 @@ class SendMessage extends Component
 {
     public $selectedConversation;
     public $receiverInstance;
-    public $message; // Cambio de 'body' a 'message'
+    public $message = '';
     public $createdMessage;
     protected $listeners = ['updateSendMessage', 'dispatchMessageSent', 'resetComponent'];
 
@@ -46,7 +47,8 @@ class SendMessage extends Component
         $this->dispatch('pushMessage', $this->createdMessage->id)->to('chat.chatbox');
         $this->dispatch('refresh')->to('chat.chat-list');
 
-        $this->reset('message'); // Restablece el valor de 'message' a su estado inicial
+        $this->reset('message');
+        // $this->render();
 
         $this->dispatch('dispatchMessageSent')->self();
     }
