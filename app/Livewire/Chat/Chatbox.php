@@ -18,9 +18,9 @@ class Chatbox extends Component
     public $messages_count;
     public $createdMessage;
 
-    protected $rules = [
-        'message' => 'required|string|max:255',
-    ];
+    // protected $rules = [
+    //     'message' => 'required|string|max:255',
+    // ];
 
     public function  getListeners()
     {
