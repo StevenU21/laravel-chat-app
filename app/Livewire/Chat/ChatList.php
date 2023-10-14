@@ -8,12 +8,11 @@ use Livewire\Component;
 
 class ChatList extends Component
 {
-    public $auth_id;
+    public $authUserId;
     public $conversations;
-    public $receiverInstance;
-    public $name;
     public $selectedConversation;
-    public $showChatList = true; // Agregamos esta propiedad
+    public $receiverInstance;
+    public $showChatList = true;
     protected $listeners = ['chatUserSelected', 'refresh' => '$refresh', 'resetComponent'];
 
     public function resetComponent()
@@ -22,42 +21,14 @@ class ChatList extends Component
         $this->receiverInstance = null;
     }
 
-    public function chatUserSelected(Conversation $conversation, $receiverId)
+    public function chatUserSelected(Conversation $conversation)
     {
         $this->selectedConversation = $conversation;
-        $receiverInstance = User::find($receiverId);
+        $receiverInstance = $this->getReceiverInstance($conversation);
 
         // Dispatch events instead of using emitTo
         $this->dispatch('loadConversation', $this->selectedConversation, $receiverInstance);
         $this->dispatch('updateSendMessage', $this->selectedConversation, $receiverInstance);
-    }
-
-    public function getChatUserInstance(Conversation $conversation, $request)
-    {
-        $this->auth_id = auth()->id();
-        $this->receiverInstance = $this->getReceiverInstance($conversation);
-
-        if (isset($request)) {
-            return $this->receiverInstance->$request;
-        }
-    }
-
-    private function getReceiverInstance(Conversation $conversation)
-    {
-        $authId = auth()->id();
-        $senderId = $conversation->sender_id;
-        $receiverId = $conversation->receiver_id;
-
-        return $authId === $senderId ? User::find($receiverId) : User::find($senderId);
-    }
-
-    public function mount()
-    {
-        $this->auth_id = auth()->id();
-        $this->conversations = Conversation::where(function ($query) {
-            $query->where('sender_id', $this->auth_id)
-                ->orWhere('receiver_id', $this->auth_id);
-        })->orderByDesc('last_time_message')->get();
     }
 
     public function toggleChatList()
@@ -65,8 +36,46 @@ class ChatList extends Component
         $this->showChatList = !$this->showChatList;
     }
 
+    public function mount()
+    {
+        $authUserId = auth()->id();
+        $this->conversations = Conversation::whereHas('users', function ($query) use ($authUserId) {
+            $query->where('users.id', $authUserId);
+        })->with(['users' => function ($query) use ($authUserId) {
+            $query->where('users.id', '!=', $authUserId);
+        }])->orderByDesc('last_time_message')->get();
+    }
+
+    private function getReceiverInstance(Conversation $conversation)
+    {
+        $authUserId = auth()->id();
+
+        $receiver = $conversation->users->whereNotIn('id', [$authUserId])->first();
+
+        return $receiver ?? null;
+    }
+
     public function render()
     {
+        $authUserId = auth()->id();
+        $this->conversations = Conversation::whereHas('users', function ($query) use ($authUserId) {
+            $query->where('users.id', $authUserId);
+        })->with(['users' => function ($query) use ($authUserId) {
+            $query->where('users.id', '!=', $authUserId);
+        }])->orderByDesc('last_time_message')->get();
+
+        // Adjuntar datos adicionales a las conversaciones
+        $this->conversations->transform(function ($conversation) {
+            $conversation->otherUser = $conversation->users->where('id', '!=', auth()->id())->first();
+            $conversation->lastMessage = optional($conversation->messages->last())->message;
+            $conversation->lastMessageTime = optional($conversation->messages->last())->created_at->shortAbsoluteDiffForHumans();
+            $conversation->unreadCount = $conversation->messages
+                ->where('read', 0)
+                ->where('sender_id', '!=', auth()->user()->id)
+                ->count();
+            return $conversation;
+        });
+
         return view('livewire.chat.chat-list');
     }
 }

@@ -13,30 +13,37 @@ class CreateChat extends Component
     public $message = 'Hola! Me gustaría saber más sobre tus productos.';
     public $createdConversation;
 
-    public function checkconversation($receiverId)
+    public function checkConversation($receiverId)
     {
-        $checkedConversation = Conversation::where('receiver_id', auth()->user()->id)
-            ->where('sender_id', $receiverId)
-            ->orWhere('receiver_id', $receiverId)
-            ->where('sender_id', auth()->user()->id)
-            ->get();
+        // Busca una conversación existente entre el usuario autenticado y el receptor
+        $authUserId = auth()->user()->id;
 
-        if (count($checkedConversation) == 0) {
-            $createdConversation = Conversation::create([
-                'receiver_id' => $receiverId,
-                'sender_id' => auth()->user()->id,
-                'last_time_message' => now(),
-            ]);
-            $createdMessage = Message::create([
-                'sender_id' => auth()->user()->id,
-                'receiver_id' => $receiverId,
-                'conversation_id' => $createdConversation->id,
-                'message' => $this->message
-            ]);
-            $this->createdConversation = $createdConversation;
-        } elseif (count($checkedConversation) >= 1) {
-            dd('conversation exists');
+        $existingConversation = Conversation::whereHas('users', function ($query) use ($authUserId, $receiverId) {
+            $query->whereIn('user_id', [$authUserId, $receiverId]);
+        })->get();
+
+        if ($existingConversation->isNotEmpty()) {
+            // La conversación ya existe
+            session()->flash('message', 'Ya existe una conversación con este usuario.');
+            return;
         }
+
+        // La conversación no existe, así que la creamos
+        $createdConversation = Conversation::create([
+            'last_time_message' => now(),
+        ]);
+
+        $createdConversation->users()->attach([$authUserId, $receiverId]);
+
+        $createdMessage = Message::create([
+            'conversation_id' => $createdConversation->id,
+            'sender_id' => $authUserId,
+            'receiver_id' => $receiverId,
+            'message' => $this->message,
+        ]);
+
+        $this->createdConversation = $createdConversation;
+        session()->flash('message', 'Conversación creada con éxito.');
     }
 
     public function render()

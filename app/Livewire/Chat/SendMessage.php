@@ -14,7 +14,7 @@ class SendMessage extends Component
     public $receiverInstance;
     public $message = '';
     public $createdMessage;
-    protected $listeners = ['updateSendMessage', 'dispatchMessageSent', 'resetComponent'];
+    protected $listeners = ['updateSendMessage', 'resetComponent'];
 
     public function resetComponent()
     {
@@ -34,28 +34,26 @@ class SendMessage extends Component
             'message' => 'required|string|min:1',
         ]);
 
-        $this->createdMessage = Message::create([
+        $createdMessage = Message::create([
             'conversation_id' => $this->selectedConversation->id,
             'sender_id' => auth()->id(),
             'receiver_id' => $this->receiverInstance->id,
             'message' => $this->message,
         ]);
 
-        $this->selectedConversation->last_time_message = $this->createdMessage->created_at;
-        $this->selectedConversation->save();
+        $this->selectedConversation->update([
+            'last_time_message' => $createdMessage->created_at,
+        ]);
 
-        $this->dispatch('pushMessage', $this->createdMessage->id)->to('chat.chatbox');
+        $this->dispatch('pushMessage', $createdMessage->id)->to('chat.chatbox');
         $this->dispatch('refresh')->to('chat.chat-list');
-
         $this->reset('message');
-        // $this->render();
-
-        $this->dispatch('dispatchMessageSent')->self();
+        $this->dispatchMessageSent($createdMessage);
     }
 
-    public function dispatchMessageSent()
+    public function dispatchMessageSent(Message $message)
     {
-        broadcast(new MessageSent(auth()->user(), $this->createdMessage, $this->selectedConversation, $this->receiverInstance));
+        broadcast(new MessageSent(auth()->user(), $message, $this->selectedConversation, $this->receiverInstance));
     }
 
     public function render()

@@ -6,47 +6,48 @@
                     class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     placeholder="Escriba un Mensaje...">
                 <button type="submit"
-                    class="ml-2 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 focus:outline-none" id="send-btn">Enviar</button>
+                    class="ml-2 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 focus:outline-none"
+                    id="send-btn">Enviar</button>
             </div>
         </form>
     @endif
 </div>
 
 <script>
-function waitForButtonToBeAvailable(elementId, interval = 100, maxAttempts = 40) {
-    return new Promise((resolve, reject) => {
-    let attempts = 0;
+    function waitForButtonToBeAvailable(elementId, interval = 100, maxAttempts = 40) {
+        return new Promise((resolve, reject) => {
+            let attempts = 0;
 
-    function checkElement() {
-        const element = document.getElementById(elementId);
-        if (element) {
-        resolve(element);
+            function checkElement() {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    resolve(element);
 
-        } else {
-            attempts++;
-            if (attempts >= maxAttempts) {
-            reject(new Error(`Element with id '${elementId}' not found.`));
+                } else {
+                    attempts++;
+                    if (attempts >= maxAttempts) {
+                        reject(new Error(`Element with id '${elementId}' not found.`));
 
-            } else {
-                setTimeout(checkElement, interval);
+                    } else {
+                        setTimeout(checkElement, interval);
+                    }
+                }
             }
-        }
+
+            checkElement();
+        });
     }
 
-    checkElement();
-    });
-}
-
-waitForButtonToBeAvailable('send-btn')
-    .then((sendBtn) => {
-        sendBtn.addEventListener('click', () => {
-            setTimeout(() => {
-                const inputMessage = document.getElementById('sendMessage');
-                inputMessage.value = '';
-            }, 300);
+    waitForButtonToBeAvailable('send-btn')
+        .then((sendBtn) => {
+            sendBtn.addEventListener('click', () => {
+                setTimeout(() => {
+                    const inputMessage = document.getElementById('sendMessage');
+                    inputMessage.value = '';
+                }, 300);
+            })
         })
-    })
-    .catch((error) => {
-        console.error(error);
-    });
+        .catch((error) => {
+            console.error(error);
+        });
 </script>

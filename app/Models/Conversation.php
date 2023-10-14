@@ -7,17 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conversation extends Model
 {
-    use HasFactory;
-
-    protected $fillable = [
-        'sender_id',
-        'receiver_id',
-        'last_time_message',
-    ];
+    protected $fillable = ['name', 'last_time_message'];
 
     public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function messages()

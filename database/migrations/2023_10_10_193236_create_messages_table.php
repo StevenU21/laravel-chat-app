@@ -13,20 +13,17 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedInteger('conversation_id');
+            $table->unsignedInteger('sender_id');
+            $table->unsignedInteger('receiver_id');
+            $table->text('message');
+            $table->boolean('read')->default(false);
 
-            // Persona que envía el mensaje
-            $table->integer('sender_id')->unsigned();
+            $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            // Persona que recibe el mensaje
-            $table->integer('receiver_id')->unsigned();
             $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
-            // Relación con la sala de chat
-            $table->integer('conversation_id')->unsigned();
-            $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade')->onUpdate('cascade');
-
-            $table->text('message')->nullable();
-            $table->boolean('read')->default(0);
+            $table->index(['conversation_id', 'read']);
             $table->timestamps();
         });
     }
