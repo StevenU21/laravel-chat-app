@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('receiver_id');
             $table->text('message');
             $table->boolean('read')->default(false);
+            $table->boolean('delivered')->default(false);
 
             $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
