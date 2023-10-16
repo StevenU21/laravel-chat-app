@@ -14,7 +14,7 @@
             shape: {
                 type: "image", // Forma de la partícula
                 image: {
-                    src: "/assets/img/chat.png",
+                    src: "/img/chat.png",
                 }
             },
             opacity: {

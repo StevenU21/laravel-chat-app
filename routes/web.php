@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Livewire\Chat\CreateChat;
 use App\Livewire\Chat\Main;
@@ -20,9 +22,11 @@ Route::get('/', function () {
     return view('Auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/conversations', [ConversationController::class, 'conversations'])->name('conversations');
+    Route::get('/conversations/explore', [ConversationController::class, 'explore'])->name('explore');
+});
 
 //livewire routes
 Route::get('/users', CreateChat::class)->name('users');

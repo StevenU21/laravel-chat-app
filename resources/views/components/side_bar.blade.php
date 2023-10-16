@@ -6,8 +6,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
-        <a class="navbar-brand pt-0" href="./index.html">
-            <img src="./assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
+        <a class="navbar-brand pt-0" href="/dashboard">
+            <img src="{{ asset('img/brand/blue.png')}}" class="navbar-brand-img" alt="...">
         </a>
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
@@ -29,7 +29,7 @@
                     aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                            <img alt="Image placeholder" src="./assets/img/theme/team-1-800x800.jpg">
+                            <img alt="Image placeholder" src="{{ asset('img/theme/team-1-800x800.jpg')}}">
                         </span>
                     </div>
                 </a>
@@ -37,11 +37,11 @@
                     <div class=" dropdown-header noti-title">
                         <h6 class="text-overflow m-0">Bienvenido!</h6>
                     </div>
-                    <a href="./examples/profile.html" class="dropdown-item">
+                    <a href="#" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
                         <span>Mi Perfil</span>
                     </a>
-                    <a href="./examples/profile.html" class="dropdown-item">
+                    <a href="#" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
                         <span>Notificaciones</span>
                     </a>
@@ -63,8 +63,8 @@
             <div class="navbar-collapse-header d-md-none">
                 <div class="row">
                     <div class="col-6 collapse-brand">
-                        <a href="./index.html">
-                            <img src="./assets/img/brand/blue.png">
+                        <a href="#">
+                            <img src="{{ asset('img/brand/blue.png')}}">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -82,33 +82,32 @@
             <hr class="my-3">
             <ul class="navbar-nav">
                 <li class="nav-item  active ">
-                    <a class="nav-link  active " href="./index.html">
+                    <a class="nav-link  active " href="/dashboard">
                         <i class="ni ni-tv-2 text-primary"></i> Panel
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="./examples/icons.html">
+                    <a class="nav-link " href="{{ route('explore')}}">
                         <i class="ni ni-pin-3 text-green"></i> Explorar
-
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="./examples/maps.html">
+                    <a class="nav-link " href="{{ route('conversations')}}">
                         <i class="ni ni-chat-round text-blue"></i> Conversaciones
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="./examples/maps.html">
+                    <a class="nav-link " href="#">
                         <i class="ni ni-bell-55 text-orange"></i>  Notificaciones
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="./examples/profile.html">
+                    <a class="nav-link " href="#">
                         <i class="ni ni-single-02 text-black"></i> Perfil
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./examples/login.html">
+                    <a class="nav-link" href="#">
                         <i class="ni ni-button-power text-info"></i> Cerrar Sesión
                     </a>
                 </li>

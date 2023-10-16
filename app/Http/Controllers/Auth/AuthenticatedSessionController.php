@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\UserActivity;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,6 +30,15 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        // Agregar código para actualizar la actividad del usuario y marcarlo como "en línea"
+        if (auth()->check()) {
+            $user = auth()->user();
+            UserActivity::updateOrCreate(
+                ['user_id' => $user->id],
+                ['last_activity' => now(), 'is_online' => true]
+            );
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -37,6 +47,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        // Agregar código para marcar al usuario como "fuera de línea" al cerrar sesión
+        if (auth()->check()) {
+            $user = auth()->user();
+            UserActivity::where('user_id', $user->id)->update(['is_online' => false]);
+        }
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

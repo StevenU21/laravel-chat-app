@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <!-- Brand -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-            href="./index.html">Bienvenido al Sistema de Chat</a>
+            href="#">Bienvenido al Sistema de Chat</a>
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
             <li class="nav-item dropdown">
@@ -10,7 +10,7 @@
                     aria-haspopup="true" aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                            <img alt="Image placeholder" src="./assets/img/theme/team-4-800x800.jpg">
+                            <img alt="Image placeholder" src="{{ asset('img/theme/team-4-800x800.jpg')}}">
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">
                             <span class="mb-0 text-sm  font-weight-bold">
@@ -25,11 +25,11 @@
                     <div class=" dropdown-header noti-title">
                         <h6 class="text-overflow m-0">Bienvenido!</h6>
                     </div>
-                    <a href="./examples/profile.html" class="dropdown-item">
+                    <a href="#" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
                         <span>Perfil</span>
                     </a>
-                    <a href="./examples/profile.html" class="dropdown-item">
+                    <a href="#" class="dropdown-item">
                         <i class="ni ni-settings-gear-65"></i>
                         <span>Notificaciones</span>
                     </a>
