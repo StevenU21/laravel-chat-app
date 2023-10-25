@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />
@@ -15,6 +15,16 @@
     <link href="{{ asset('js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
     <!-- CSS Files -->
     <link href="{{ asset('css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
+
+    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+    @vite(['resources/js/app.js'])
+    <style>
+        @media (max-width: 767px) {
+            .card {
+                margin: 0 auto;
+            }
+        }
+    </style>
     @livewireStyles
 </head>
 
@@ -28,8 +38,6 @@
         @include('components.nav_bar')
         <!-- End Navbar -->
         <!-- Header -->
-        {{-- <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
-        </div> --}}
         @yield('content')
     </div>
     <!--   Core   -->

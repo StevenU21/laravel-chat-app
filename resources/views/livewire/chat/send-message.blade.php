@@ -1,12 +1,12 @@
 <div>
     @if ($selectedConversation)
         <form wire:submit.prevent="sendMessage" action="" class="p-4">
-            <div class="flex items-center bg-white p-2 rounded-lg">
-                <input wire:model.live="message" type="text" id="sendMessage"
-                    class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+            <div class="d-flex align-items-center bg-white p-2 rounded-lg">
+                <input wire:model="message" type="text" id="sendMessage"
+                    class="w-100 p-2 border border-primary rounded-md focus-outline-none focus-border-primary"
                     placeholder="Escriba un Mensaje...">
                 <button type="submit"
-                    class="ml-2 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 focus:outline-none"
+                    class="ms-2 py-2 px-4 bg-primary text-white rounded-md hover-bg-primary hover-text-white transition-300 focus-outline-none"
                     id="send-btn">Enviar</button>
             </div>
         </form>
@@ -35,19 +35,19 @@
             }
 
             checkElement();
-        });
-    }
+        }
 
-    waitForButtonToBeAvailable('send-btn')
-        .then((sendBtn) => {
-            sendBtn.addEventListener('click', () => {
-                setTimeout(() => {
-                    const inputMessage = document.getElementById('sendMessage');
-                    inputMessage.value = '';
-                }, 300);
+        waitForButtonToBeAvailable('send-btn')
+            .then((sendBtn) => {
+                sendBtn.addEventListener('click', () => {
+                    setTimeout(() => {
+                        const inputMessage = document.getElementById('sendMessage');
+                        inputMessage.value = '';
+                    }, 300);
+                })
             })
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 </script>

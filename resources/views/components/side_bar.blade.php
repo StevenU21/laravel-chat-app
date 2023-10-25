@@ -7,7 +7,7 @@
         </button>
         <!-- Brand -->
         <a class="navbar-brand pt-0" href="/dashboard">
-            <img src="{{ asset('img/brand/blue.png')}}" class="navbar-brand-img" alt="...">
+            <img src="{{ asset('img/brand/blue.png') }}" class="navbar-brand-img" alt="...">
         </a>
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
@@ -29,7 +29,7 @@
                     aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                            <img alt="Image placeholder" src="{{ asset('img/theme/team-1-800x800.jpg')}}">
+                            <img alt="Image placeholder" src="{{ asset('img/theme/team-1-800x800.jpg') }}">
                         </span>
                     </div>
                 </a>
@@ -64,7 +64,7 @@
                 <div class="row">
                     <div class="col-6 collapse-brand">
                         <a href="#">
-                            <img src="{{ asset('img/brand/blue.png')}}">
+                            <img src="{{ asset('img/brand/blue.png') }}">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -87,18 +87,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{{ route('explore')}}">
+                    <a class="nav-link " href="{{ route('explore') }}">
                         <i class="ni ni-pin-3 text-green"></i> Explorar
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{{ route('conversations')}}">
+                    <a class="nav-link " href="{{ route('conversations') }}">
                         <i class="ni ni-chat-round text-blue"></i> Conversaciones
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="#">
-                        <i class="ni ni-bell-55 text-orange"></i>  Notificaciones
+                        <i class="ni ni-bell-55 text-orange"></i> Notificaciones
                     </a>
                 </li>
                 <li class="nav-item">

@@ -1,16 +1,19 @@
-<div class="flex flex-col sm:flex-row">
-    <div class="w-full sm:w-1/4 lg:w-1/4">
-        <div class="p-4 bg-gray-200">
-            @livewire('chat.chat-list')
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 col-sm-4 col-lg-4">
+            <div class="p-4 bg-gray-200">
+                @livewire('chat.chat-list')
+            </div>
         </div>
-    </div>
-    <div class="w-full sm:w-3/4 lg:w-3/4">
-        <div class="p-4 bg-white">
-            @livewire('chat.chatbox')
-            @livewire('chat.send-message')
+        <div class="col-12 col-sm-8 col-lg-8">
+            <div class="p-4 bg-white">
+                @livewire('chat.chatbox')
+                @livewire('chat.send-message')
+            </div>
         </div>
     </div>
 </div>
+
 <!-- Scripts para escuchar y despachar eventos con Livewire 3 -->
 <script>
     document.addEventListener('livewire:initialized', () => {

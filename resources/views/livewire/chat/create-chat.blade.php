@@ -1,17 +1,20 @@
-<div>
-    <ul class="bg-white shadow-md rounded-lg w-3/4 mx-auto mt-8">
+<div class="container mt-4">
+    <h2 class="text-center">Usuarios en línea</h2>
+    <div class="row">
         @foreach ($users as $user)
-            <li
-                class="border-b border-gray-200 p-4 hover:bg-gray-100 cursor-pointer transition duration-300 ease-in-out">
-                {{ $user->name }}
-                <button wire:click="checkConversation({{ $user->id }})">Iniciar una Conversación</button>
-            </li>
+            <div class="col-12 col-md-6 col-lg-3 mb-4">
+                <div class="card">
+                    <img class="card-img-top"
+                        src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={{ $user->name }}"
+                        alt="{{ $user->name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $user->name }}</h5>
+                        <p class="card-text text-truncate">Estado: En línea</p>
+                        <button class="btn btn-primary" wire:click="checkConversation({{ $user->id }})">Iniciar
+                            Conversación</button>
+                    </div>
+                </div>
+            </div>
         @endforeach
-    </ul>
-
-    @if (session()->has('message'))
-        <div class="mt-4 text-green-600">
-            {{ session('message') }}
-        </div>
-    @endif
+    </div>
 </div>
