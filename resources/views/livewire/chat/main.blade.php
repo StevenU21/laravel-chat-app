@@ -1,7 +1,7 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-12 col-sm-4 col-lg-4">
-            <div class="p-4 bg-gray-200">
+            <div class="p-4 bg-indigo text-white">
                 @livewire('chat.chat-list')
             </div>
         </div>
@@ -14,7 +14,8 @@
     </div>
 </div>
 
-<!-- Scripts para escuchar y despachar eventos con Livewire 3 -->
+
+{{-- <!-- Scripts para escuchar y despachar eventos con Livewire 3 -->
 <script>
     document.addEventListener('livewire:initialized', () => {
         @this.on('chatSelected', (event) => {
@@ -42,4 +43,4 @@
             document.querySelector('.w-3/4').classList.add('hidden');
         });
     });
-</script>
+</script> --}}

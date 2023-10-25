@@ -11,23 +11,13 @@
             <div class="d-none d-sm-block">
                 @if ($showChatList)
                     @forelse ($conversations as $conversation)
-                        <div class="border border-secondary rounded p-4 cursor-pointer transition-transform transform hover:scale-105" wire:key="{{ $conversation->id }}" wire:click="chatUserSelected({{ $conversation->id }})">
-                            <div class="d-flex align-items-center">
-                                <div class="w-12 h-12 rounded-circle overflow-hidden">
-                                    <img src="https://ui-avatars.com/api/?name={{ $conversation->otherUser->name }}" alt="{{ $conversation->otherUser->name }}">
+                        <div class="card chat-card" wire:key="{{ $conversation->id }}" wire:click="chatUserSelected({{ $conversation->id }})">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="font-weight-bold h4 text-indigo">{{ $conversation->otherUser->name }}</div>
+                                    <span class="text-muted small">{{ $conversation->lastMessageTime }}</span>
                                 </div>
-                                <div class="chatlist_info ml-4">
-                                    <div class="d-flex align-items-center">
-                                        <div class="font-weight-bold h4 text-indigo">{{ $conversation->otherUser->name }}</div>
-                                        <span class="text-muted small ml-2">{{ $conversation->lastMessageTime }}</span>
-                                    </div>
-                                    <div class="bottom_row">
-                                        <div class="message_body text-truncate text-secondary">{{ $conversation->lastMessage }}</div>
-                                        @if ($conversation->unreadCount > 0)
-                                            <div class="small font-weight-bold rounded-circle text-white bg-danger px-3 py-1">{{ $conversation->unreadCount }}</div>
-                                        @endif
-                                    </div>
-                                </div>
+                                <div class="message_body text-truncate text-secondary">{{ $conversation->lastMessage }}</div>
                             </div>
                         </div>
                     @empty
@@ -36,7 +26,6 @@
                 @endif
             </div>
             <div class="d-block d-sm-none">
-                <!-- Botón para mostrar/ocultar la lista de chat en pantallas pequeñas -->
                 <button class="w-100 bg-indigo text-white py-2 px-4 rounded hover:bg-indigo-800" wire:click="toggleChatList" wire:ignore>
                     Mostrar/ocultar lista de chat
                 </button>

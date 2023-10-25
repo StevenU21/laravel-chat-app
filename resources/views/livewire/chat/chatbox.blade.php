@@ -34,7 +34,7 @@
                 </div>
             @endforeach
         </div>
-        <script src="{{ asset('js/chatbox-scripts.js') }}"></script>
+        {{-- <script src="{{ asset('js/chatbox-scripts.js') }}"></script> --}}
     @else
         <!-- Contenido cuando no se selecciona una conversación -->
         <div class="text-center mt-5">

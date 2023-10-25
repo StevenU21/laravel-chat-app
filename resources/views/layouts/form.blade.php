@@ -4,118 +4,135 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>CHAT || @yield('title')</title>
-    <!-- Favicon -->
-    <link href="./assets/img/brand/favicon.png" rel="icon" type="image/png">
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-    <!-- Icons -->
-    <link href="./assets/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
-    <link href="./assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <title>
+        Laravel || Chat
+    </title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <!-- Nucleo Icons -->
+    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
-    @vite(['resources/css/argon-dashboard.min.css'])
-    @livewireStyles
+    <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 </head>
 
-<body class="bg-default">
-    <div class="main-content">
-        <!-- Navbar -->
-        <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
-            <div class="container px-4">
-                <a class="navbar-brand" href="/">
-                    <img src="{{ asset('img/brand/white.png') }}" />
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbar-collapse-main">
-                    <!-- Collapse header -->
-                    <div class="navbar-collapse-header d-md-none">
-                        <div class="row">
-                            <div class="col-6 collapse-brand">
-                                <a href="#">
-                                    <img src="{{ asset('img/brand/blue.png') }}">
-                                </a>
-                            </div>
-                            <div class="col-6 collapse-close">
-                                <button type="button" class="navbar-toggler" data-toggle="collapse"
-                                    data-target="#navbar-collapse-main" aria-controls="sidenav-main"
-                                    aria-expanded="false" aria-label="Toggle sidenav">
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Navbar items -->
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link nav-link-icon" href="/">
-                                <i class="ni ni-planet"></i>
-                                <span class="nav-link-inner--text">Inicio</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-link-icon" href="register">
-                                <i class="ni ni-circle-08"></i>
-                                <span class="nav-link-inner--text">Registro</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-link-icon" href="login">
-                                <i class="ni ni-key-25"></i>
-                                <span class="nav-link-inner--text">Login</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-link-icon" href="#">
-                                <i class="ni ni-single-02"></i>
-                                <span class="nav-link-inner--text">Contacto</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Header -->
-        <div class="header bg-gradient-primary py-7 py-lg-8">
-            <div class="container">
-                <div class="header-body text-center mb-7">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-5 col-md-6">
-                            <h1 class="text-white">@yield('title', 'Bienvenido al Sitio!')</h1>
-                            <p class="text-lead text-light">Regístrate o Inicia Sesion para tener Acceso.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="separator separator-bottom separator-skew zindex-100">
-                <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-                </svg>
+<body class="">
+    <!-- Navbar -->
+    <nav
+        class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent mt-4">
+        <div class="container">
+            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 text-white" href="/">
+                Laravel Chat APP
+            </a>
+            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon mt-2">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navigation">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center me-2 active" aria-current="page"
+                            href="/">
+                            <i class="fa fa-chart-pie opacity-6  me-1"></i>
+                            Landing Page
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-2" href="{{ route('register') }}">
+                            <i class="fas fa-user-circle opacity-6  me-1"></i>
+                            Registrarse
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav d-lg-block d-none">
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="btn btn-sm mb-0 me-1 bg-gradient-light">
+                            <i class="fas fa-key opacity-6  me-1"></i> Iniciar Sesión</a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <!-- Page content -->
-        @yield('content')
-        <!-- Footer -->
-        <footer class="py-5">
+    </nav>
+    <!-- End Navbar -->
+    <main class="main-content  mt-0">
+        <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
+            style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">
+            <span class="mask bg-gradient-dark opacity-6"></span>
             <div class="container">
-                <div class="row align-items-center justify-content-xl-between">
-                    <div class="col-xl-6">
-                        <div class="copyright text-center text-xl-left text-muted">
-                            © 2023 <a href="https://github.com/StevenU21" class="font-weight-bold ml-1"
-                                target="_blank">StevenU21</a>
-                        </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 text-center mx-auto">
+                        <h1 class="text-white mb-2 mt-5">Bienvenido!</h1>
+                        <p class="text-lead text-white">Es un placer tenerlo aqui, ingresa tus credenciales o registrate
+                            para acceder al sitio y conectarte con personas de todo el mundo!.</p>
                     </div>
                 </div>
             </div>
-        </footer>
-    </div>
-    <!--   Core   -->
-    <script src="assets/js/plugins/jquery/dist/jquery.min.js"></script>
-    <script src="assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        </div>
+        @yield('content')
+    </main>
+    <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-4 mt-2">
+                    <a href="#" target="_blank" class="text-secondary me-xl-4 me-4">
+                        <span class="text-lg fab fa-dribbble"></span>
+                    </a>
+                    <a href="#" target="_blank" class="text-secondary me-xl-4 me-4">
+                        <span class="text-lg fab fa-twitter"></span>
+                    </a>
+                    <a href="#" target="_blank" class="text-secondary me-xl-4 me-4">
+                        <span class="text-lg fab fa-instagram"></span>
+                    </a>
+                    <a href="#" target="_blank" class="text-secondary me-xl-4 me-4">
+                        <span class="text-lg fab fa-pinterest"></span>
+                    </a>
+                    <a href="#" target="_blank" class="text-secondary me-xl-4 me-4">
+                        <span class="text-lg fab fa-github"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8 mx-auto text-center mt-1">
+                    <p class="mb-0 text-secondary">
+                        Copyright ©
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script> StevenU21.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+    <!--   Core JS Files   -->
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 </body>
 
 </html>
