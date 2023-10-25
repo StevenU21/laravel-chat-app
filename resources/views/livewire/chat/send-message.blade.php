@@ -22,12 +22,10 @@
                 const element = document.getElementById(elementId);
                 if (element) {
                     resolve(element);
-
                 } else {
                     attempts++;
                     if (attempts >= maxAttempts) {
                         reject(new Error(`Element with id '${elementId}' not found.`));
-
                     } else {
                         setTimeout(checkElement, interval);
                     }
@@ -35,19 +33,19 @@
             }
 
             checkElement();
-        }
-
-        waitForButtonToBeAvailable('send-btn')
-            .then((sendBtn) => {
-                sendBtn.addEventListener('click', () => {
-                    setTimeout(() => {
-                        const inputMessage = document.getElementById('sendMessage');
-                        inputMessage.value = '';
-                    }, 300);
-                })
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        });
     }
+
+    waitForButtonToBeAvailable('send-btn')
+        .then((sendBtn) => {
+            sendBtn.addEventListener('click', () => {
+                setTimeout(() => {
+                    const inputMessage = document.getElementById('sendMessage');
+                    inputMessage.value = '';
+                }, 300);
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 </script>
