@@ -44,6 +44,14 @@ return [
             'throw' => false,
         ],
 
+        'profiles' => [
+            'driver' => 'local',
+            'root' => storage_path('app/profiles'), // Asegúrate de crear esta carpeta en storage/app/public
+            'url' => env('APP_URL') . '/profiles',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -71,6 +79,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('profiles') => storage_path('app/profiles'),
     ],
 
 ];
