@@ -32,8 +32,9 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            // 'file' => 'required|image|mimes:jpeg,png,jpg,jfif,heif,webp|max:8192'
         ]);
 
         $user = User::create([
@@ -41,6 +42,13 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        // if ($request->hasFile('profileImg') && $request->file('profileImg')->isValid()) {
+        //     $name = $user->id . '-' . now()->format('YmdHis') . '.' . $request->file('profileImg')->getClientOriginalExtension();
+        //     $user->profileImgOri = $request->file('profileImg')->getClientOriginalName();
+        //     $user->profileImg = $name;
+        //     $request->file('profileImg')->storeAs('profiles', $name); // Asegúrate de que la carpeta 'profiles' exista
+        // }
 
         event(new Registered($user));
 

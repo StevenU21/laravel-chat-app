@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class CreateChat extends Component
 {
-    public $users;
+    public $usersWithActivity;
     public $message = 'Hola! Me gustaría saber más sobre tus productos.';
     public $createdConversation;
 
@@ -48,7 +48,9 @@ class CreateChat extends Component
 
     public function render()
     {
-        $this->users = User::where('id', '!=', auth()->user()->id)->get();
+        $this->usersWithActivity = User::where('id', '!=', auth()->user()->id)
+            ->with('activity')
+            ->get();
         return view('livewire.chat.create-chat');
     }
 }

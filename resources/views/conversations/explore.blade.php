@@ -1,6 +1,6 @@
 @extends('layouts.panel')
-@section('title' , 'Explorar')
+@section('title', 'Explorar')
 
 @section('content')
-@livewire('chat.create-chat')
+    @livewire('chat.create-chat')
 @endsection

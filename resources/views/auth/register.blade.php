@@ -12,6 +12,11 @@
                         @include('components.auth.errors')
                         <form role="form" method="POST" action="{{ route('register') }}">
                             @csrf
+                            {{-- <div class="mb-3">
+                                <label for="profile_img" class="form-label">Imagen de Perfil:</label>
+                                <input type="file" name="file" class="form-control" id="profileImg">
+                            </div> --}}
+
                             <div class="mb-3">
                                 <input class="form-control" placeholder="Nombre" type="text" name="name"
                                     value="{{ old('name') }}" required autocomplete="name" autofocus>

@@ -39,6 +39,7 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            'timeout' => 15, // Tiempo de inactividad en minutos
         ],
     ],
 

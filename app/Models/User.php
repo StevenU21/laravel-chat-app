@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -59,5 +60,10 @@ class User extends Authenticatable
     public function url()
     {
         return 'http://' . (string)Storage::Disk('profiles')->url($this->profileImg);
+    }
+
+    public function activity()
+    {
+        return $this->hasOne(UserActivity::class, 'user_id');
     }
 }
