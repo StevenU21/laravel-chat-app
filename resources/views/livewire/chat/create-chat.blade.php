@@ -8,20 +8,46 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ Str::limit($user->name, 18) }}</h5>
                         <p class="card-text text-truncate">Estado:
-                            <span class="badge bg-gradient-{{ $user->activity && $user->activity->is_online ? 'success' : 'danger' }}">
+                            <span
+                                class="badge bg-gradient-{{ $user->activity && $user->activity->is_online ? 'success' : 'danger' }}">
                                 {{ $user->activity && $user->activity->is_online ? 'En Línea' : 'Inactivo' }}
                             </span>
                         </p>
-                        <button class="btn btn-primary" wire:click="checkConversation({{ $user->id }})">Iniciar Conversación</button>
+                        <button class="btn btn-primary" wire:click="checkConversation({{ $user->id }})">Iniciar
+                            Conversación</button>
                     </div>
                 </div>
             </div>
             @if ($loop->iteration % 4 == 0)
-                </div><div class="row">
-            @endif
+    </div>
+    <div class="row">
+        @endif
         @endforeach
     </div>
 </div>
+
+@if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: '{{ session('success') }}',
+            showConfirmButton: true,
+        });
+    </script>
+@endif
+
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops... Algo Salio Mal',
+            text: '{{ session('error') }}',
+            showConfirmButton: true,
+        });
+    </script>
+@endif
+
 
 {{-- <div class="container mt-4">
     <h2 class="text-center">Usuarios en línea</h2>

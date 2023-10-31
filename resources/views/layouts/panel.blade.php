@@ -20,6 +20,7 @@
     <!-- CSS Files -->
     @vite(['resources/js/app.js'])
     <link id="pagestyle" href="{{ asset('css/argon-dashboard.css?v=2.0.4') }}" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     @livewireStyles
 </head>
 

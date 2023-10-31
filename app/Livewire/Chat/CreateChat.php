@@ -81,6 +81,9 @@ class CreateChat extends Component
         // Actualiza la última hora del mensaje
         $conversation->update(['last_time_message' => now()]);
 
+
+        session()->flash('success', '¡Conversación creada con éxito!');
+        return redirect()->to('/conversations');
         // Guarda la conversación creada en una propiedad para su uso posterior
         $this->createdConversation = $conversation;
     }
