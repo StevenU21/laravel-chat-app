@@ -5,11 +5,23 @@
         </div>
 
         <div class="col-lg-8 col-md-7 col-12">
-            <div class="card blur shadow-blur max-height-vh-70">
-                <!-- Contenedor de chatbox y send-message -->
+            <!-- Contenedor de chatbox y send-message -->
+            @livewire('chat.chatbox')
+        </div>
+        @livewire('chat.send-message')
+    </div>
+</div>
+
+{{-- <div class="container mt-4">
+    <div class="col-12 col-sm-4 col-lg-4">
+        <div class="p-4 bg-indigo text-white">
+            @livewire('chat.chat-list')
+        </div>
+        <div class="col-12 col-sm-8 col-lg-8">
+            <div class="p-4 bg-white">
                 @livewire('chat.chatbox')
                 @livewire('chat.send-message')
             </div>
         </div>
     </div>
-</div>
+</div> --}}
