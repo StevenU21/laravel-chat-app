@@ -42,30 +42,46 @@
 <div class="card blur shadow-blur max-height-vh-70 overflow-auto overflow-x-hidden mb-5 mb-lg-0">
     <div class="card-header p-3">
         <h6>Conversaciones</h6>
-        <input type="search" class="form-control" placeholder="Buscar Contacto" aria-label="search">
+        <button wire:click="toggleChatList" class="btn btn-primary btn-sm">Mostrar/Ocultar Lista</button>
+        <input wire:model.live="search" type="search" class="form-control" placeholder="Buscar Contacto"
+            aria-label="search">
     </div>
     <div class="card-body p-2">
         @if ($showChatList)
             @forelse ($conversations as $conversation)
-                <div class="d-block p-2 border-radius-lg bg-gradient-primary" wire:key="{{ $conversation->id }}"
+                <a href="javascript:;"
+                    class="d-block p-2 conversation {{ $selectedConversation == $conversation ? 'selected' : '' }}"
                     wire:click="chatUserSelected({{ $conversation->id }})">
                     <div class="d-flex p-2">
                         <img alt="Image" src="{{ asset('img/team-3.jpg') }}" class="avatar shadow">
                         <div class="ms-3">
                             <div class="justify-content-between align-items-center">
-                                <h6 class="text-white mb-0">{{ $conversation->otherUser->name }}
+                                <h6 class="text-muted mb-0">{{ $conversation->otherUser->name }}
                                     <span class="badge badge-success"></span>
                                 </h6>
-                                <p class="text-white text-xs mb-2">{{ $conversation->lastMessageTime }}</p>
-                                <span class="text-white text-sm col-11 p-0 text-truncate d-block">
-                                    {{ Str::limit($conversation->lastMessage, 20) }}</span>
+                                <p class="text-muted text-xs mb-2">{{ $conversation->lastMessageTime }}</p>
+                                <span class="text-muted text-sm col-11 p-0 text-truncate d-block">
+                                    {{ Str::limit($conversation->lastMessage, 20) }}
+                                </span>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             @empty
                 <div class="text-muted">No tienes conversaciones</div>
             @endforelse
         @endif
     </div>
 </div>
+
+{{--
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.conversation').click(function() {
+            $('.conversation').removeClass(
+                'selected'); // Elimina la clase 'selected' de todas las conversaciones
+            $(this).addClass('selected'); // Agrega la clase 'selected' a la conversación clicada
+        });
+    });
+</script> --}}

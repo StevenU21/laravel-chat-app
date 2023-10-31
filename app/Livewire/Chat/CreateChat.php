@@ -14,39 +14,6 @@ class CreateChat extends Component
     public $message = 'Hola! Me gustaría saber más sobre tus productos.';
     public $createdConversation;
 
-    // public function checkConversation($receiverId)
-    // {
-    //     // Busca una conversación existente entre el usuario autenticado y el receptor
-    //     $authUserId = auth()->user()->id;
-
-    //     $existingConversation = Conversation::whereHas('users', function ($query) use ($authUserId, $receiverId) {
-    //         $query->whereIn('user_id', [$authUserId, $receiverId]);
-    //     })->get();
-
-    //     if ($existingConversation->isNotEmpty()) {
-    //         // La conversación ya existe
-    //         session()->flash('message', 'Ya existe una conversación con este usuario.');
-    //         return;
-    //     }
-
-    //     // La conversación no existe, así que la creamos
-    //     $createdConversation = Conversation::create([
-    //         'last_time_message' => now(),
-    //     ]);
-
-    //     $createdConversation->users()->attach([$authUserId, $receiverId]);
-
-    //     $createdMessage = Message::create([
-    //         'conversation_id' => $createdConversation->id,
-    //         'sender_id' => $authUserId,
-    //         'receiver_id' => $receiverId,
-    //         'message' => $this->message,
-    //     ]);
-
-    //     $this->createdConversation = $createdConversation;
-    //     session()->flash('message', 'Conversación creada con éxito.');
-    // }
-
     public function checkConversation($receiverId)
     {
         // Obtén el usuario autenticado
@@ -60,9 +27,10 @@ class CreateChat extends Component
             ->first();
 
         if (!$conversation) {
-            // Si no se encuentra una conversación, crea una nueva
+            // La conversación no existe, así que la creamos
             $conversation = Conversation::create([
-                'name' => 'Conversación de ' . $user->name,
+                //el nombre de la conversación es el nombre del usuario receptor y el usuario autenticado
+                'name' => User::find($receiverId)->name . ' . ' . auth()->user()->name,
                 'last_time_message' => now(),
             ]);
 
@@ -81,13 +49,11 @@ class CreateChat extends Component
         // Actualiza la última hora del mensaje
         $conversation->update(['last_time_message' => now()]);
 
-
         session()->flash('success', '¡Conversación creada con éxito!');
         return redirect()->to('/conversations');
         // Guarda la conversación creada en una propiedad para su uso posterior
         $this->createdConversation = $conversation;
     }
-
 
     public function render()
     {

@@ -2,7 +2,7 @@
 @section('title', 'Conversaciones')
 
 @section('content')
-    {{-- <div class="card shadow-lg mx-4">
+    <div class="card shadow-lg mx-4">
         <div class="card-body p-3">
             <div class="row gx-4">
                 <div class="col-auto">
@@ -25,6 +25,6 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
     @livewire('chat.main')
 @endsection

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire\Chat;
 
 use App\Models\Conversation;
@@ -8,6 +7,7 @@ use Livewire\Component;
 
 class ChatList extends Component
 {
+    public $search = '';
     public $authUserId;
     public $conversations;
     public $selectedConversation;
@@ -26,7 +26,6 @@ class ChatList extends Component
         $this->selectedConversation = $conversation;
         $receiverInstance = $this->getReceiverInstance($conversation);
 
-        // Dispatch events instead of using emitTo
         $this->dispatch('loadConversation', $this->selectedConversation, $receiverInstance);
         $this->dispatch('updateSendMessage', $this->selectedConversation, $receiverInstance);
     }
@@ -37,6 +36,11 @@ class ChatList extends Component
     }
 
     public function mount()
+    {
+        $this->loadConversations();
+    }
+
+    public function loadConversations()
     {
         $authUserId = auth()->id();
         $this->conversations = Conversation::whereHas('users', function ($query) use ($authUserId) {
@@ -57,12 +61,8 @@ class ChatList extends Component
 
     public function render()
     {
-        $authUserId = auth()->id();
-        $this->conversations = Conversation::whereHas('users', function ($query) use ($authUserId) {
-            $query->where('users.id', $authUserId);
-        })->with(['users' => function ($query) use ($authUserId) {
-            $query->where('users.id', '!=', $authUserId);
-        }])->orderByDesc('last_time_message')->get();
+        // Si necesitas recargar las conversaciones, llama a loadConversations
+        $this->loadConversations();
 
         // Adjuntar datos adicionales a las conversaciones
         $this->conversations->transform(function ($conversation) {

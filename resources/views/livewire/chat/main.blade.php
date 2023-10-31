@@ -7,8 +7,8 @@
         <div class="col-lg-8 col-md-7 col-12">
             <!-- Contenedor de chatbox y send-message -->
             @livewire('chat.chatbox')
+            @livewire('chat.send-message')
         </div>
-        @livewire('chat.send-message')
     </div>
 </div>
 
